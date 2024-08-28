@@ -11,19 +11,23 @@ Usage:
 '''
 
 #==== Parse flags and filename ====#
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(prog='abbrevj',
+                                 description='Automatic abbreviation of journal names in a file'+\
+                                 'containing a collection of BibTex entries.')
 parser.add_argument("filename")
 parser.add_argument("-c", "--case", help="Perform case-sensitive replacements.", action='store_true')
 parser.add_argument("-r", "--rcase", help="The case type of the replacements. Available " +
                     "options are \'t\' for title case (default), \'l\' for lowercase, " +
                     "\'u\' for uppercase, and \'a\' to use the string as hardcoded in the " +
-                    "abbrevmap database dictionary.", default='t')
+                    "abbrevmap database dictionary.", default='a')
 parser.add_argument("-i", "--invert", help="If given, the program will look for the journal " +
                     "abbreviations and replace them with the corresponding expanded one.",
                     action='store_true')
 parser.add_argument("-o", "--output", help="Specifies output filename.", default=None)
 
 args = parser.parse_args()
+
+
 
 #==== Open the file ====#
 ifile = str(args.filename)

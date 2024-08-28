@@ -1,0 +1,64 @@
+#! /usr/bin/env python
+
+from pybtex.database import parse_file as bibparse
+import abbrevmap
+import argparse
+
+
+'''
+Usage:
+  abbrevf filename
+'''
+
+desc = 'Find journal names in a file containing a collection of BibTex entries that ' + \
+       'are not abbreviated based on the abbrevmap database. Journals listed under ' + \
+       'the unabbreviated list are those that are registered in the database in any ' + \
+       'version of its case form. Journals listed under the unregistered list are ' + \
+       'those that cannot be found in the database.'
+
+#==== Parse flags and filename ====#
+parser = argparse.ArgumentParser(prog='abbrevf', description=desc)
+parser.add_argument("filename")
+args = parser.parse_args()
+
+
+#==== Open the file ====#
+ifile = str(args.filename)
+bibdata = bibparse(ifile)
+
+unabb = {}
+unreg = {}
+nonj = []
+for x,y in bibdata.entries.items():
+    # x = bibliography key, the string used to cite the reference from the Tex file.
+    # y = the remaining fields of the entry, e.g. publisher, title, authors, etc.
+    if 'journal' in y.fields:
+        z = y.fields['journal']
+        if z.lower() in list( map(str.lower, abbrevmap.dic.keys()) ):
+            if z != abbrevmap.dic[z]:
+                # If the expanded name is not the same as its abbreviated name,
+                # even if they are different by cases, then this is considered
+                # unabbreviated.
+                unabb[x] = z
+        elif z in abbrevmap.dic.values():
+            pass
+        else:
+            unreg[x] = z
+    else:
+        nonj = nonj + [x]
+
+        
+print('Unabbreviated journal entries (%d entries): ' % len(unabb))
+for x,y in unabb.items():
+    print('  ' + x + ' :: ' + y)
+print('')
+    
+print('Unregistered journal entries (%d entries): ' % len(unreg))
+for x,y in unreg.items():
+    print('  ' + x + ' :: ' + y)
+print('')
+
+print('Non-journal entries (%d entries): ' % len(nonj))
+for x in nonj:
+    print('  ' + x)
+print('')    
