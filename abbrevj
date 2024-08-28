@@ -1,0 +1,71 @@
+#! /usr/bin/env python
+
+import re
+import abbrevmap
+import argparse
+
+
+'''
+Usage:
+  abbrevj [-c] filename
+'''
+
+#==== Parse flags and filename ====#
+parser = argparse.ArgumentParser()
+parser.add_argument("filename")
+parser.add_argument("-c", "--case", help="Perform case-sensitive replacements.", action='store_true')
+parser.add_argument("-r", "--rcase", help="The case type of the replacements. Available " +
+                    "options are \'t\' for title case (default), \'l\' for lowercase, " +
+                    "\'u\' for uppercase, and \'a\' to use the string as hardcoded in the " +
+                    "abbrevmap database dictionary.", default='t')
+parser.add_argument("-i", "--invert", help="If given, the program will look for the journal " +
+                    "abbreviations and replace them with the corresponding expanded one.",
+                    action='store_true')
+parser.add_argument("-o", "--output", help="Specifies output filename.", default=None)
+
+args = parser.parse_args()
+
+#==== Open the file ====#
+ifile = str(args.filename)
+with open(ifile) as f:
+     s = f.read()
+
+#==== Do the replacements ====#
+for key, val in abbrevmap.dic.items():
+     #==== Expanded to abbreviated or the opposite ====#
+     if args.invert:
+          old = val
+          new = key
+     else:
+          old = key
+          new = val
+
+     #==== Case-sensitive replacements or not ====#
+     if args.case:
+          pattern = re.compile(old)
+     else:
+          pattern = re.compile(old, re.IGNORECASE)
+
+     #==== Choose case type of replacements ====#
+     if args.rcase == 't':
+          new = new.title()
+     elif args.rcase == 'u':
+          new = new.upper()
+     elif args.rcase == 'l':
+          new = new.lower()
+     elif args.rcase == 'a':
+          pass
+          
+     s = pattern.sub(new, s)
+
+#==== Print output ====#
+if args.output is None:
+     print(s)
+else:
+     with open(args.output, 'w') as o:
+          o.write(s)
+
+
+
+
+

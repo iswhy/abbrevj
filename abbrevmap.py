@@ -1,0 +1,37 @@
+
+
+dic = {'Physical Review' : 'Phys. Rev.',
+       'Physical Review Letters' : 'Phys. Rev. Lett.', 
+       'Physical Review A' : 'Phys. Rev. A',
+       'Physical Review B' : 'Phys. Rev. B',
+       'Physical Review E' : 'Phys. Rev. E',
+       'The Journal of Chemical Physics' : 'J. Chem. Phys.',
+       'WIREs Computational Molecular Science' : 'Wiley Interdiscip. Rev.: Comput. Mol. Sci.',
+       'Journal of Chemical Theory and Computation' : 'J. Chem. Theory Comput.',
+       'International Journal of Quantum Chemistry' : 'Int. J. Quantum Chem.',
+       'Annals of Physics' : 'Ann. Phys.',
+       'SIAM Journal on Matrix Analysis and Applications' : 'SIAM J. Matrix Anal. Appl.',
+       'SIAM Journal on Numerical Analysis' : 'SIAM J. Numer. Anal.',
+       'Chemical Physics' : 'Chem. Phys.',
+       'International Journal of Modern Physics B' : 'Int. J. Mod. Phys. B',
+       'Chemical Physics Letters' : 'Chem. Phys. Lett.',
+       'Chemical Reviews' : 'Chem. Rev.',
+       'Journal of Physics B: Atomic, Molecular and Optical Physics' : 'J. Phys. B',
+       'Science' : 'Science',
+       'Optics Communications' : 'Opt. Commun.',
+       'Optics Express' : 'Opt. Express',
+       'Journal of Physics: Conference Series' : 'J. Phys.: Conf. Ser.',
+       'The Journal of Physical Chemistry Letters' : 'J. Phys. Chem. Lett.',
+       'The Journal of Physical Chemistry' : 'J. Phys. Chem.',
+       'The Journal of Physical Chemistry A' : 'J. Phys. Chem. A',
+       'Molecular Physics' : 'Mol. Phys.',
+       'Journal of the American Chemical Society' : 'J. Am. Chem. Soc.',
+       'Physics Reports' : 'Phys. Rep.',
+       'Journal of Computational Physics' : 'J. Comput. Phys.',
+       'Journal of Computational Chemistry' : 'J. Comput. Chem.',
+       'New Journal of Physics' : 'New J. Phys.',
+       'ACM Transactions on Mathematical Software' : 'ACM Trans. Math. Softw.',
+       'ChemPhysChem' : 'Chem. Phys. Chem.'
+       }
+
+

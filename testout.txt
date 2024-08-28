@@ -1,0 +1,31 @@
+@article{6-31g_1,
+    author = {Ditchfield, R. and Hehre, W. J. and Pople, J. A.},
+    title = "{Self‐Consistent Molecular‐Orbital Methods. IX. An Extended Gaussian‐Type Basis for Molecular‐Orbital Studies of Organic Molecules}",
+    journal = {J. Chem. Phys.},
+    volume = {54},
+    number = {2},
+    pages = {724-728},
+    year = {1971},
+    month = {01},
+    abstract = "{An extended basis set of atomic functions expressed as fixed linear combinations of Gaussian functions is presented for hydrogen and the first‐row atoms carbon to fluorine. In this set, described as 4–31 G, each inner shell is represented by a single basis function taken as a sum of four Gaussians and each valence orbital is split into inner and outer parts described by three and one Gaussian function, respectively. The expansion coefficients and Gaussian exponents are determined by minimizing the total calculated energy of the atomic ground state. This basis set is then used in single‐determinant molecular‐orbital studies of a group of small polyatomic molecules. Optimization of valence‐shell scaling factors shows that considerable rescaling of atomic functions occurs in molecules, the largest effects being observed for hydrogen and carbon. However, the range of optimum scale factors for each atom is small enough to allow the selection of a standard molecular set. The use of this standard basis gives theoretical equilibrium geometries in reasonable agreement with experiment.}",
+    issn = {0021-9606},
+    doi = {10.1063/1.1674902},
+    url = {https://doi.org/10.1063/1.1674902},
+    eprint = {https://pubs.aip.org/aip/jcp/article-pdf/54/2/724/18872207/724\_1\_online.pdf},
+}
+
+
+@article{tdcc,
+author = {Sverdrup Ofstad, Benedicte and Aurbakken, Einar and Sigmundson Schøyen, \Oyvind and Kristiansen, H\aakon Emil and Kvaal, Simen and Pedersen, Thomas Bondo},
+title = {Time-dependent coupled-cluster theory},
+journal = {Wires Comput. Mol. Sci.},
+volume = {13},
+number = {5},
+pages = {e1666},
+keywords = {attosecond dynamics, coupled-cluster theory, laser-driven electron dynamics, transient spectroscopy, vibrational coupled-cluster},
+doi = {https://doi.org/10.1002/wcms.1666},
+url = {https://wires.onlinelibrary.wiley.com/doi/abs/10.1002/wcms.1666},
+eprint = {https://wires.onlinelibrary.wiley.com/doi/pdf/10.1002/wcms.1666},
+abstract = {Abstract Recent years have witnessed an increasing interest in time-dependent coupled-cluster (TDCC) theory for simulating laser-driven electronic dynamics in atoms and molecules, and for simulating molecular vibrational dynamics. Starting from the time-dependent bivariational principle, we review different flavors of single-reference TDCC theory with either orthonormal static, orthonormal time-dependent, or biorthonormal time-dependent spin orbitals. The time-dependent extension of equation-of-motion coupled-cluster theory is also discussed, along with the applications of TDCC methods to the calculation of linear absorption spectra, linear and low-order nonlinear response functions, highly nonlinear high harmonic generation spectra and ionization dynamics. In addition, the role of TDCC theory in finite-temperature many-body quantum mechanics is briefly described along with a few other application areas. This article is categorized under: Electronic Structure Theory > Ab Initio Electronic Structure Methods Theoretical and Physical Chemistry > Spectroscopy Software > Simulation Methods},
+year = {2023}
+}
