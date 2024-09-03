@@ -69,7 +69,3 @@ else:
      with open(args.output, 'w') as o:
           o.write(s)
 
-
-
-
-
