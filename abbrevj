@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
-import re
+from pybtex.database import parse_file as bibparse
+#import re
 import abbrevmap
 import argparse
 
@@ -15,13 +16,19 @@ parser = argparse.ArgumentParser(prog='abbrevj',
                                  description='Automatic abbreviation of journal names in a file'+\
                                  'containing a collection of BibTex entries.')
 parser.add_argument("filename")
-parser.add_argument("-c", "--case", help="Perform case-sensitive replacements.", action='store_true')
+parser.add_argument("-c", "--icase", help="Perform case-sensitive replacements.", action='store_true')
 parser.add_argument("-r", "--rcase", help="The case type of the replacements. Available " +
-                    "options are \'t\' for title case (default), \'l\' for lowercase, " +
-                    "\'u\' for uppercase, and \'a\' to use the string as hardcoded in the " +
+                    "options are \'t\' for title case, \'l\' for lowercase, " +
+                    "\'u\' for uppercase, and \'a\' (default) to use the string as hardcoded in the " +
                     "abbrevmap database dictionary.", default='a')
 parser.add_argument("-i", "--invert", help="If given, the program will look for the journal " +
                     "abbreviations and replace them with the corresponding expanded one.",
+                    action='store_true')
+parser.add_argument("-y", "--attach-year", help="If given, the program will attach the publication " +
+                    "year to the end of the key that represents the publication separated by a " +
+                    "hyphen with the original key. If the publication does not have the \'year\' " +
+                    "field or if the original key is already suffixed with a \'-yyyy\' where " +
+                    "\'yyyy\' is its publication year, then this key will not be modified.",
                     action='store_true')
 parser.add_argument("-o", "--output", help="Specifies output filename.", default=None)
 
@@ -31,36 +38,99 @@ args = parser.parse_args()
 
 #==== Open the file ====#
 ifile = str(args.filename)
-with open(ifile) as f:
-     s = f.read()
+bibdata = bibparse(ifile)
+s = ''.join(['@preamble{"', bibdata.preamble, '"}\n\n'])
+
+#==== Build mapping dicts without leading and trailing spaces ====#
+unabbstr = list(map(str.strip, abbrevmap.dic.keys()))
+abbstr = list(map(str.strip, abbrevmap.dic.values()))
+map12 = dict(zip(unabbstr, abbstr))
+map21 = dict(zip(abbstr, unabbstr))
 
 #==== Do the replacements ====#
-for key, val in abbrevmap.dic.items():
-     #==== Expanded to abbreviated or the opposite ====#
-     if args.invert:
-          old = val
-          new = key
-     else:
-          old = key
-          new = val
+for x,y in bibdata.entries.items():
+     # x = bibliography key, the string used to cite the reference from the Tex file.
+     # y = the remaining fields of the entry, e.g. publisher, title, authors, etc.
+     if 'journal' in y.fields:
+          jname = y.fields['journal']
+          replace = False
 
-     #==== Case-sensitive replacements or not ====#
-     if args.case:
-          pattern = re.compile(old)
-     else:
-          pattern = re.compile(old, re.IGNORECASE)
-
-     #==== Choose case type of replacements ====#
-     if args.rcase == 't':
-          new = new.title()
-     elif args.rcase == 'u':
-          new = new.upper()
-     elif args.rcase == 'l':
-          new = new.lower()
-     elif args.rcase == 'a':
-          pass
+          #==== Replacement direction ====#
+          if args.invert:
+               if args.icase:
+                    abb = jname in map21.keys()
+               else:
+                    abb = jname.lower() in list(map(str.lower, map21.keys()))
+               replace = abb
+               if abb:
+                    repl = map21[jname]
+          else:
+               if args.icase:
+                    unabb = jname in map12.keys()
+               else:
+                    unabb = jname.lower() in list(map(str.lower, map12.keys()))
+               replace = unabb
+               if unabb:
+                    repl = map12[jname]
           
-     s = pattern.sub(new, s)
+          #==== Choose case type of replacements ====#
+          if replace:
+               if args.rcase == 't':
+                    repl = repl.title()
+               elif args.rcase == 'u':
+                    repl = repl.upper()
+               elif args.rcase == 'l':
+                    repl = repl.lower()
+               elif args.rcase == 'a':
+                    pass
+               bibdata.entries[x].fields['journal'] = repl
+
+     if args.attach_year and 'year' in y.fields:
+          key_year = (x.split('-')[-1] == y.fields['year'])
+          #== Does the key has the trailing year already? ==#
+          if key_year:
+               x0 = x
+          else:
+               x0 = ''.join([x, '-', y.fields['year']])
+     else:
+          x0 = x
+          
+     s = ''.join([s, '@', y.type, '{', x0, ',\n'])
+     for a in y.persons:
+          la = ' and '.join([name for name in list(map(str, y.persons[a])) ])
+          s = ''.join([s, '   ', a, ' = {', la, '},\n'])
+     for e in y.fields:
+          s = ''.join([s, '   ', e, ' = {', y.fields[e], '},\n'])
+     s = ''.join([s, '}\n\n'])
+
+     
+#for key, val in abbrevmap.dic.items():
+#     #==== Expanded to abbreviated or the opposite ====#
+#     if args.invert:
+#          old = val
+#          new = key
+#     else:
+#          old = key
+#          new = val
+#
+#     #==== Case-sensitive replacements or not ====#
+#     if args.case:
+#          pattern = re.compile(old)
+#     else:
+#          pattern = re.compile(old, re.IGNORECASE)
+#
+#     #==== Choose case type of replacements ====#
+#     if args.rcase == 't':
+#          new = new.title()
+#     elif args.rcase == 'u':
+#          new = new.upper()
+#     elif args.rcase == 'l':
+#          new = new.lower()
+#     elif args.rcase == 'a':
+#          pass
+#          
+#     s = pattern.sub(new, s)
+
 
 #==== Print output ====#
 if args.output is None:
