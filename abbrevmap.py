@@ -35,7 +35,7 @@ dic = {'Physical Review' : 'Phys. Rev.',
        'ACM Transactions on Mathematical Software' : 'ACM Trans. Math. Softw.',
        'ChemPhysChem' : 'Chem. Phys. Chem.',
        'Annual Review of Physical Chemistry' : 'Annu. Rev. Phys. Chem.',
-       'Nature communications' : 'Nat. Commun.',
+       'Nature Communications' : 'Nat. Commun.',
        'Frontiers in Chemistry' : 'Front. Chem.',
        'The European Physical Journal D' : 'Eur. Phys. J. D',
        'SciPost Phys. Lect. Notes' : 'SciPost Phys. Lect. Notes',
@@ -53,11 +53,18 @@ dic = {'Physical Review' : 'Phys. Rev.',
        'IEEE Journal of Selected Topics in Quantum Electronics' : 'IEEE J. Sel. Top. Quantum Electron.',
        'Reviews of Modern Physics' : 'Rev. Mod. Phys.',
        'Laser Physics' : 'Laser Phys.',
-       'Journal of Modern Optics' : 'J. Mod. Opt.'
+       'Journal of Modern Optics' : 'J. Mod. Opt.',
+       'Results in Physics' : 'Results Phys.',
+       'Structural Dynamics' : 'Struct. Dyn.',
+       'Computer Physics Communications' : 'Comput. Phys. Commun.',
+       'Journal of Fourier analysis and applications' : 'J. Fourier Anal. Appl.',
+       'SIAM Review' : 'SIAM Rev.',
+       'Scientific reports' : 'Sci. Rep.',
+       'Nature Physics' : 'Nat. Phys.',
+       'JETP Lett.' : 'JETP Lett.',
+       'Optics Letter' : 'Opt. Lett.',
+       'PRX Quantum' : 'PRX Quantum',
+       'Nature Reviews Physics' : 'Nat. Rev. Phys.',
+       'Physical Review X' : 'Phys. Rev. X',
+       'Quantum Science and Technology' : 'Quantum Sci. Technol.'
        }
-
-
-
-
-
-
